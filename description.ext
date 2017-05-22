@@ -1,0 +1,179 @@
+author="Hustler, royAKAonedigita";
+OverviewTextLocked="Search buildings / question locals for intel, destroy caches, and eliminate Taliban insurgents in <t color='#ff0000'>RED</t> grid squares!";
+OverviewPicture="images\load.paa";
+onLoadMission="Search buildings / question locals for intel, destroy caches, and eliminate Taliban insurgents in <t color='#ff0000'>RED</t> grid squares!";
+onLoadIntroTime=1;
+onLoadMissionTime=1;
+onLoadName="INSURGENCY: MSO";
+loadScreen="images\load.paa";
+
+class Header {gameType=COOP;minPlayers=1;maxPlayers=27;playerCountMultipleOf=1;};
+
+enableDebugConsole=1;
+allowFunctionsRecompile=0;
+allowFunctionsLog=0;
+disabledAI=1;
+joinUnassigned=1;
+skipLobby=0;
+briefing=0;
+debriefing=0;
+enableTeamSwitch=0;
+disableRandomization[]={"allUnits","O_G_Offroad_01_F","O_G_Offroad_01_armed_F","O_G_Offroad_01_repair_F","o_survivor_F","C_man_1"};
+showUAVFeed=1;
+respawnButton=1;
+respawnDialog=0;
+respawn=3;
+respawnDelay=7;
+respawnOnStart=-1;
+corpseManagerMode=1;
+corpseLimit=3;
+corpseRemovalMinTime=60;
+corpseRemovalMaxTime=300;
+wreckManagerMode=1; 
+wreckLimit=2;
+wreckRemovalMinTime=60;
+wreckRemovalMaxTime=300;
+minPlayerDistance=35;
+taskManagement_markers2D=1;
+taskManagement_markers3D=1;
+taskManagement_propagate=1;
+taskManagement_drawDist=30;
+
+class Params {
+	class EmtpyLine1 {
+	//paramsArray[0]
+		title=":: M I S S I O N   S E T T I N G S ::";
+		values[]={0,0};
+		texts[]={"",""};
+		default=0;
+	};
+    class cachesLimit {
+	//paramsArray[1]
+		title="Number of Caches To Hunt";
+		values[]={2,4,6,8,10,12};
+		texts[]={"2","4","6 (Default)","8","10","12"};
+		default=6;
+	};
+	class intelItems {
+	//paramsArray[2]
+		title="Number of INTEL Items Per Town";
+		values[]={0,1,2,3};
+		texts[]={"None","1 (Default)","2","3"};
+		default=1;
+	};
+	class ambAnimals {
+	//paramsArray[3]
+		title="Ambient Animals (On/Off)";
+		values[]={1,0};
+		texts[]={"On (Default)","Off"};
+		default=1;
+	};
+	class Daytime {
+	//paramsArray[4]
+		title="Time";
+		texts[]={"Dawn","Morning (Default)","Noon","Afternoon","Evening","Night"};
+		values[]={5,8,12,14,18,0};
+		default=5;
+		function="BIS_fnc_paramDaytime";
+ 		isGlobal=0;
+	};
+	class Weather {
+	//paramsArray[5]
+		title="Weather";
+		texts[]={"Clear","Partly Cloudy (Default)","Cloudy","Storm"};
+		values[]={0,40,55,100};
+		default=40;
+		function="BIS_fnc_paramWeather";
+		isGlobal=0;
+	};
+	class vDist {
+	//paramsArray[6]
+		title="View Distance (meters)";
+		texts[]={"750m","1000m (Default)","1200m","1600m","1800m","2000m","2500m","3000m","3500m","4000m"};
+		values[]={750,1000,1200,1600,1800,2000,2500,3000,3500,4000};
+		default=1000;
+	};
+	class noGrass {
+	//paramsArray[7]
+		title="Grass (On/Off)";
+		values[]={48,50};
+		texts[]={"On (Default)","Off"};
+		default=48;
+	};
+	class Shadows {
+	//paramsArray[8]
+		title="Shadows (On/Off)";
+		values[]={75,0};
+		texts[]={"On (Default)","Off"};
+		default=75;
+	};
+	class a2cc {
+	//paramsArray[9]
+		title="Arma2:OA Takistan Color Correction (On/Off)";
+		values[]={1,0};
+		texts[]={"On (Default)","Off"};
+		default=1;
+	};
+	class AFAR {
+	//paramsArray[10]
+		title="Addon-Free ArmA Radio (On/Off)";
+		values[]={1,0};
+		texts[]={"On (Default)","Off"};
+		default=1;
+	};
+	class NVG {
+	//paramsArray[11]
+		title="Allow NVG with Scopes? (On/Off)";
+		values[]={1,0};
+		texts[]={"On (Default)","Off"};
+		default=0;
+	};
+};
+#include "common\client\BRS\defines.hpp"
+#include "common\client\BRS\dialogs.hpp"
+#include "common\client\HALO\dialog.hpp"
+#include "common\client\CAS\casDefine.hpp"
+#include "common\client\CAS\casMenu.hpp"
+#include "common\client\Strobe\defines.hpp"
+#include "common\client\Strobe\dialogs.hpp"
+class RscTitles {
+	#include "common\client\ais_injury\dialogs\rscTitlesAIS.hpp"
+};
+class CfgFunctions {
+	#include "common\client\ais_injury\cfgFunctionsAIS.hpp"
+	#include "common\client\vip_cmn\fn\vip_cmn_fnc.hpp"
+	#include "common\client\vip_lit\fn\vip_lit_fnc.hpp"
+};
+class CfgSounds {
+#include "common\client\vip_lit\resource\vip_lit_cfgSounds.hpp"
+#include "common\client\AFAR\SFX.hpp"
+#include "common\client\CRS\CRS_sfx.hpp"
+sounds[]={intro,adhan,cantDo,deaf,shout,pain1,pain2,pain3,pain4,fire1,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,para0,para1,para2,para3,para4,para5,para6,para7,para8};
+
+	class intro {name="intro";sound[]={"common\client\intro.ogg",db-8,1.0};titles[]={};};
+	class adhan {name="adhan";sound[]={"common\server\ctp\adhan.ogg",1,1};titles[]={};};
+	class cantDo {name="cantDo";sound[]={"@A3\Sounds_F\SFX\beep_Target.wss",1,1};titles[]={};};
+	class shout {name="shout";sound[]={"eos\fn\shout.ogg",db-0.7,1,50};titles[]={};};
+	class pain1 {name="pain1";sound[]={"@A3\Dubbing_Radio_F\Data\PER\Male02PER\RadioProtocolPER\Combat\200_CombatShouts\ScreamingE_1.ogg",0.8,1,50};titles[]={};};
+	class pain2 {name="pain2";sound[]={"@A3\Dubbing_Radio_F\Data\PER\Male02PER\RadioProtocolPER\Combat\200_CombatShouts\ScreamingE_2.ogg",0.8,1,50};titles[]={};};
+	class pain3 {name="pain3";sound[]={"@A3\Dubbing_Radio_F\Data\PER\Male02PER\RadioProtocolPER\Combat\200_CombatShouts\ScreamingE_3.ogg",0.8,1,50};titles[]={};};
+	class pain4 {name="pain4";sound[]={"@A3\Dubbing_Radio_F\Data\PER\Male02PER\RadioProtocolPER\Combat\200_CombatShouts\ScreamingE_4.ogg",0.8,1,50};titles[]={};};
+	class fire1 {name="fire1";sound[]={"@A3\Dubbing_Radio_F\Data\PER\Male02PER\RadioProtocolPER\Combat\200_CombatShouts\CheeringE_1.ogg",0.8,1,50};titles[]={};};
+	class fire2 {name="fire2";sound[]={"@A3\Dubbing_Radio_F\Data\PER\Male02PER\RadioProtocolPER\Combat\200_CombatShouts\CheeringE_2.ogg",0.8,1,50};titles[]={};};
+	class fire3 {name="fire3";sound[]={"@A3\Dubbing_Radio_F\Data\PER\Male02PER\RadioProtocolPER\Combat\200_CombatShouts\CheeringE_3.ogg",0.8,1,50};titles[]={};};
+	class fire4 {name="fire4";sound[]={"@A3\Dubbing_Radio_F\Data\PER\Male02PER\RadioProtocolPER\Combat\200_CombatShouts\CheeringE_4.ogg",0.8,1,50};titles[]={};};
+	class fire5 {name="fire5";sound[]={"@A3\Dubbing_Radio_F\Data\PER\Male02PER\RadioProtocolPER\Combat\200_CombatShouts\CheeringE_5.ogg",0.8,1,50};titles[]={};};
+	class fire6 {name="fire6";sound[]={"@A3\Dubbing_Radio_F\Data\PER\Male02PER\RadioProtocolPER\Combat\200_CombatShouts\CombatGenericE_1.ogg",0.8,1,50};titles[]={};};
+	class fire7 {name="fire7";sound[]={"@A3\Dubbing_Radio_F\Data\PER\Male02PER\RadioProtocolPER\Combat\200_CombatShouts\CombatGenericE_2.ogg",0.8,1,50};titles[]={};};
+	class fire8 {name="fire8";sound[]={"@A3\Dubbing_Radio_F\Data\PER\Male02PER\RadioProtocolPER\Combat\200_CombatShouts\CombatGenericE_3.ogg",0.8,1,50};titles[]={};};
+	class fire9 {name="fire9";sound[]={"@A3\Dubbing_Radio_F\Data\PER\Male02PER\RadioProtocolPER\Combat\200_CombatShouts\CombatGenericE_4.ogg",0.8,1,50};titles[]={};};
+	class para0 {name="para0";sound[]={"@A3\Sounds_F\Characters\parachute\parachute_open.wss",1,1};titles[]={};};
+	class para1 {name="para1";sound[]={"@A3\Sounds_F\Characters\parachute\parachute_glide_loop.wss",1,1};titles[]={};};
+	class para2 {name="para2";sound[]={"@A3\Sounds_F\Characters\parachute\parachute_rustle_1.wss",1,1};titles[]={};};
+	class para3 {name="para3";sound[]={"@A3\Sounds_F\Characters\parachute\parachute_rustle_2.wss",1,1};titles[]={};};
+	class para4 {name="para4";sound[]={"@A3\Sounds_F\Characters\parachute\parachute_rustle_3.wss",1,1};titles[]={};};
+	class para5 {name="para5";sound[]={"@A3\Sounds_F\Characters\parachute\parachute_rustle_4.wss",1,1};titles[]={};};
+	class para6 {name="para6";sound[]={"@A3\Sounds_F\Characters\parachute\parachute_rustle_5.wss",1,1};titles[]={};};
+	class para7 {name="para7";sound[]={"@A3\Sounds_F\Characters\parachute\parachute_rustle_6.wss",1,1};titles[]={};};
+	class para8 {name="para8";sound[]={"@A3\Sounds_F\Characters\parachute\parachute_landing.wss",1,1};titles[]={};};
+};
