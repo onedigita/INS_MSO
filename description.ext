@@ -128,6 +128,7 @@ class Params {
 		texts[]={"On (Default)","Off"};
 		default=0;
 	};
+	#include "tickets\script_params.hpp"
 };
 #include "common\client\BRS\defines.hpp"
 #include "common\client\BRS\dialogs.hpp"

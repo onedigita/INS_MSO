@@ -69,13 +69,16 @@ null=[]execVM"common\server\gc.sqf";
 [west,["blTsk"],["Points of interest in base, marked on your map.","Base Layout",""],objNull,false,4,false,"",true]call BIS_fnc_taskCreate;
 null=[]execVM "common\server\Obj\init.sqf";
 if(!isACE)then{
-#include "common\client\CRS\CRS_fn.sqf";null=[]execVM "common\client\CRS\CRS.sqf";
-inCap=compile preprocessFileLineNumbers "common\server\ai\inCap.sqf";_null=[false,true,true,70,0]execVM "common\server\ai\wound.sqf";
-null=[]execVM "common\client\repair.sqf";null=[]execVM "common\client\fastRope.sqf";
-null=[]execVM "common\client\strobe\strobe.sqf";
-if(!isServer&&isNull player)then{isJIP=true;}else{isJIP=false;};
-if(!isDedicated)then{waitUntil{!isNull player && isPlayer player};};};
-if(!isDedicated && hasInterface)then{
-waitUntil{time>1};
-execNow "intro.sqf";
+	#include "common\client\CRS\CRS_fn.sqf";null=[]execVM "common\client\CRS\CRS.sqf";
+	inCap=compile preprocessFileLineNumbers "common\server\ai\inCap.sqf";_null=[false,true,true,70,0]execVM "common\server\ai\wound.sqf";
+	null=[]execVM "common\client\repair.sqf";null=[]execVM "common\client\fastRope.sqf";
+	null=[]execVM "common\client\strobe\strobe.sqf";
+	if(!isServer&&isNull player)then{isJIP=true;}else{isJIP=false;};
+	if(!isDedicated)then{waitUntil{!isNull player && isPlayer player};};
 };
+
+if(!isDedicated && hasInterface)then{
+	waitUntil{time>1};
+	execNow "intro.sqf";
+};
+call compile preprocessFile "tickets\init.sqf";
