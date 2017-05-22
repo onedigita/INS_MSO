@@ -1,7 +1,7 @@
 if(isDedicated)exitWith{};
 if(hasInterface)then{
 private["_cam","_camX","_camY","_camZ","_object"];
-titleText["T A K I S T A N   I N S U R G E N C Y","BLACK IN",9999];
+titleText["I N S U R G E N C Y -  M S O","BLACK IN",9999];
 waitUntil{!(isNull player)};
 sleep .2;
 playSound "intro";
@@ -14,7 +14,7 @@ _cam camSetTarget _object;
 _cam cameraEffect["Internal","Back"];
 _cam camCommit 0;
 sleep 3.5;
-titleText["Eliminate Taliban rebels and find intel to destroy caches in red grid squares.","BLACK IN",10];
+titleText["Eliminate Taliban rebels and find intel to destroy caches.","BLACK IN",10];
 sleep 10;
 _cam cameraEffect["Terminate","Back"];
 camDestroy _cam;};
