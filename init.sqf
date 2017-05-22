@@ -82,3 +82,4 @@ if(!isDedicated && hasInterface)then{
 	execNow "intro.sqf";
 };
 call compile preprocessFile "tickets\init.sqf";
+execVM "headless\HCInit.sqf"; HCDebug = 0;
