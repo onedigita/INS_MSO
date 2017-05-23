@@ -59,7 +59,7 @@ class Params {
 		title="Number of INTEL Items Per Town";
 		values[]={0,1,2,3};
 		texts[]={"None","1 (Default)","2","3"};
-		default=1;
+		default=3;
 	};
 	class ambAnimals {
 	//paramsArray[3]
@@ -119,7 +119,7 @@ class Params {
 		title="Addon-Free ArmA Radio (On/Off)";
 		values[]={1,0};
 		texts[]={"On (Default)","Off"};
-		default=1;
+		default=0;
 	};
 	class NVG {
 	//paramsArray[11]
